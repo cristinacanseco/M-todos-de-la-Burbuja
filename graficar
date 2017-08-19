@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package herramientas;
+
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+/**
+ *
+ * @author CRISTY
+ */
+public class graficar {
+    JFreeChart grafica;
+    XYSeriesCollection datos = new XYSeriesCollection();
+    String titulo;
+    String x,y;
+    
+    public graficar(String titulo){
+        this.titulo = titulo;
+        grafica = ChartFactory.createScatterPlot(titulo, x, y, datos, PlotOrientation.HORIZONTAL, true, true, true);    
+    }
+    
+    public void agregarGrafica(String titulo, double [] tiempo, int [] n){
+        XYSeries s= new XYSeries(titulo);
+        int total = n.length;
+        for(int y=0; y<total ;y++){
+            s.add(tiempo[y],n[y]);
+        }
+         datos.addSeries(s);
+    }
+    public JPanel obtenerPanel(){
+        return new ChartPanel(grafica);
+    }
+    
+}
