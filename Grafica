@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package herramientas;
+
+import algoritmos.Burbuja;
+import algoritmos.BurbujaOptimizado;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/**
+ *
+ * @author CRISTY
+ */
+public class Grafica extends JFrame{
+    
+   public Grafica(){
+      graficar laGrafica = new graficar("Burbuja vs Burbuja Optimizada");
+      
+      //PRUEBA DEL MÉTODO
+      double [] datos1 = new double[]{6,5,3,1,8,7,2,4};
+      double [] datos2 = new double[]{6,5,3,1,8,7,2,4};
+      
+      Burbuja b1 = new Burbuja();
+      Burbuja b3 = new Burbuja();
+      BurbujaOptimizado b2 = new BurbujaOptimizado();
+      double[] tiempoD1 = null ;
+      int[] tamanoD1 = null;
+      double[] tiempoD2 = null;
+      int[] tamanoD2 = null;
+      
+      for (int x=1; x<10000;x++){
+            double [] datos =herramientas.Datos.generarDatosAleatorios(50*x, 100);
+            double [] datosA = datos.clone();
+            tiempoD1 = new double[datos.length];
+            tamanoD1 = new int[datos.length];
+            tiempoD2 = new double[datosA.length];
+            tamanoD2 = new int[datosA.length];
+            
+            b1.ordenar(datos);
+            b2.ordenar(datosA);        
+            
+            tiempoD1[x-1]=b1.getTiempoTotal();
+            tamanoD1[x-1]=datos.length;
+            
+            tiempoD2[x-1]=b2.getTiempoTotal();
+            tamanoD2[x-1]=datosA.length;
+      }
+      //Agrega los datos
+            laGrafica.agregarGrafica("Burbuja:", tiempoD1,tamanoD1);
+            laGrafica.agregarGrafica("Burbuja Optimizado", tiempoD2,tamanoD2);
+            
+            //Hace la gráfica
+            JPanel panel = laGrafica.obtenerPanel();
+            this.setSize(400,500);
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.add(panel);
+            this.setVisible(true);
+   }
+   
+}
